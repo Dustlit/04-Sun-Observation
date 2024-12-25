@@ -22,8 +22,5 @@ jobs:
       env:
         SHEETDB_API_URL: ${{ secrets.SHEETDB_API_URL }}
       run: |
-        # Install dependencies
         npm install
-        
-        # Example script
         node scripts/sendToSheetDB.js

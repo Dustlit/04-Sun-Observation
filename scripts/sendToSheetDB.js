@@ -1,9 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const attendeesInput = document.getElementById("attendees");
     const amountDisplay = document.getElementById("amount");
-    const discountDisplay = document.getElementById("discount");
 
-    // Cost per person and discount rate
+    // Cost per person
     const originalPrice = 500;
 
     // Calculate total amount
@@ -21,9 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
     registrationForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const attendees = attendeesInput.value;
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const attendees = attendeesInput.value.trim();
         const eventDate = document.querySelector('input[name="event_date"]:checked')?.value;
 
         if (!name || !phone || !attendees || !eventDate) {
@@ -33,12 +32,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Get the current date and time in IST
         const currentDate = new Date();
-        const utcOffsetInMilliseconds = currentDate.getTimezoneOffset() * 60000; // UTC offset in milliseconds
-        const istOffsetInMilliseconds = 5.5 * 60 * 60 * 1000; // IST offset (UTC+5:30)
+        const utcOffsetInMilliseconds = currentDate.getTimezoneOffset() * 60000;
+        const istOffsetInMilliseconds = 5.5 * 60 * 60 * 1000;
         const istDate = new Date(currentDate.getTime() + utcOffsetInMilliseconds + istOffsetInMilliseconds);
 
-        const timestamp = istDate.toISOString(); // ISO format for database
-        const submission_date = istDate.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }); // Human-readable format
+        const timestamp = istDate.toISOString();
+        const submission_date = istDate.toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
 
         // Prepare data for submission
         const formData = {
@@ -50,15 +49,29 @@ document.addEventListener("DOMContentLoaded", () => {
             submission_date: submission_date
         };
 
+        // Access the SheetDB API URL from the environment
+        const sheetDBUrl = process.env.SHEETDB_API_URL;
+
+        if (!sheetDBUrl) {
+            console.error("SHEETDB_API_URL is not defined in the environment.");
+            alert("Configuration error: API URL is missing.");
+            return;
+        }
+
         // Send data to SheetDB API
-        fetch("https://sheetdb.io/api/v1/tpqiqnpfwy54i", {
+        fetch(sheetDBUrl, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ data: formData }) // Wrap the form data in a "data" object as per SheetDB requirements
+            body: JSON.stringify({ data: formData }) // Wrap the form data
         })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             alert(`Thank you for registering, ${name}!\nYour data has been successfully submitted.`);
             registrationForm.reset();
@@ -67,24 +80,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .catch(error => {
             console.error("Error submitting data to SheetDB: ", error);
             alert("An error occurred while submitting your data. Please try again.");
-        });
-    });
-
-    // Add Copy UPI functionality
-    const copyButtons = document.querySelectorAll("[id^='copyButton']"); // Select all copy buttons
-    copyButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-            const upiNumberElement = button.previousElementSibling.querySelector("span");
-            const upiNumber = upiNumberElement.textContent;
-
-            navigator.clipboard.writeText(upiNumber).then(() => {
-                button.textContent = "Copied"; // Change button text
-                setTimeout(() => {
-                    button.textContent = "Copy UPI"; // Revert after 3 seconds
-                }, 3000);
-            }).catch(err => {
-                console.error("Failed to copy UPI Number: ", err);
-            });
         });
     });
 });
