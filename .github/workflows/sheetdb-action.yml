@@ -26,4 +26,4 @@ jobs:
         npm install
         
         # Example script
-        node your-script.js
+        node scripts/sendToSheetDB.js
