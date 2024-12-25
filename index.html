@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+     <!-- Event Banner -->
+     <section class="container">
+
+        
+        <img src="sunimage.jpg" alt="Event Banner" class="banner">
+        
+        <h1 style="font-family: 'Burtons'; font-size: 60px;">Sun Observation</h1>
+        <p style="font-size: 20px;">with</p>
+        <h2 style="font-family: 'Burtons'; font-size: 30px;">Dedicated Solar Telescope</h2>
+
+        <h2><span style="color: #ff6600;">Join us on December 28th - 29th at Devadas Observatory, Guindy Chennai for an unforgettable Solar Observation event.</span></h2>
+        <h2><span style="color: #ff6600;">Experience Our Nearest Star with powerful telescopes</span></h2>
+
+        <h3><u>Inclusions:</u></h3>
+        <p>Sun Observation & Observatory Visit</p>
+
+        <p><u>Package Details:</u></p>
+        
+        <p>Regular Price Per Person : ₹500/-</p>
+		<p>Kids under 10 years old: Free Admission</p>
+
+        <p><u>Disclaimer:</u></p>
+        <p>The occurrence of the event relies on weather conditions.</p>
+        <p>If the weather condition is not good, we will reschedule the event.</p>
+        <p>Date: <span style="color: #ff6600;">28th - 29th December 2024, 11:00 AM - 01:00 PM</span></p>
+        <p>Location: <a href="https://maps.app.goo.gl/YZhs7XzFACym1L9n9" target="_blank" style="color: #ff6600;">Devadas Observatory</a></p>
+		 </section>
+		
+		<section class="container">
+		
+		<h2><strong>🌟 Event Itinerary: Unveil the Secrets of the Sun 🌟</strong></h2>
+
+			<P>✨ 1. Welcome & Introduction
+				Step into the world of solar wonders! Begin with a warm welcome and a sneak peek into the stellar activities lined up for the day.</p>
+
+			<P>🌞 2. White Light Solar Projection
+				Behold the brilliance of the sun! Explore its surface in vivid detail, spotting sunspots and surface granules through an incredible solar projection.</p>
+
+			<P>🔥 3. Hydrogen Alpha Telescope Viewing
+				Immerse yourself in a fiery spectacle! Witness the sun’s dynamic chromosphere, awe-inspiring solar flares, and spectacular prominences through our hydrogen-alpha telescope.</p>
+
+			<P>📸 4. Solar Imaging & Processing
+				Turn into a solar scientist! Capture breathtaking images of the sun and learn cutting-edge techniques to process and analyze its intricate features.</p>
+
+			<P>💬 5. Talk by the Organizers: Journey into the Observatory
+				Take a cosmic journey! Discover the rich history, advanced facilities, and impactful research of our observatory from the experts themselves.</p>
+
+			<P>🎤 6. Closing Remarks & Q&A Session
+				End on a high note! Get your questions answered, share your thoughts, and bid farewell with memories of a celestial experience to cherish.</p>
+
+    </section>
+
+    <div class="container">
+        
+        <form id="registrationForm">
+
+            <img src="logo.png" alt="Event Logo" class="logo">
+            <h1>Event Registration</h1>
+        
+            <h1 id="discount" style="color: red; font-weight: bold;"></h1>
+        
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required placeholder="Enter your name">
+        
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required maxlength="10" pattern="\d{10}" placeholder="Enter 10-digit phone number">
+        
+            <label for="attendees">Number of Attendees:</label>
+            <input type="number" id="attendees" name="attendees" required min="1" placeholder="Enter number of attendees" oninput="calculateAmount()">
+            
+            <label>Select Event Date:</label>
+    <div class="radio-group">
+        <label>
+            <input type="radio" name="event_date" value="28th December 2024">
+            28th December 2024 (Saturday)
+          </label>
+        <label>
+            <input type="radio" name="event_date" value="29th December 2024">29th December 2024 (Sunday)
+        </label>
+
+            <p id="amount">Total Amount: ₹0</p>
+        
+            <div class="payment-section">
+                <p>Payment Details:</p>
+                <div>
+                    <p>UPI Number: <span id="upiNumber1">7416930597</span></p>
+                    <button type="button" id="copyButton1">Copy UPI</button>
+                </div>
+                <div><p>-</p></div>
+                <div><p>or</p></div>
+                <div><p>-</p></div>
+                <div>
+                    <p>UPI Number: <span id="upiNumber2">9585866980</span></p>
+                    <button type="button" id="copyButton2">Copy UPI</button>
+                </div>
+            </div>
+            
+            </div>
+        
+            <button type="submit" id="submitButton">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
