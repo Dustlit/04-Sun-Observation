@@ -1,0 +1,29 @@
+name: SheetDB Integration
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  send-data:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    - name: Run Script to Send Data
+      env:
+        SHEETDB_API_URL: ${{ secrets.SHEETDB_API_URL }}
+      run: |
+        # Install dependencies
+        npm install
+        
+        # Example script
+        node your-script.js
