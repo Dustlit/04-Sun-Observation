@@ -49,11 +49,11 @@ document.addEventListener("DOMContentLoaded", () => {
             submission_date: submission_date
         };
 
-        // Access the SheetDB API URL from the environment
-        const sheetDBUrl = process.env.SHEETDB_API_URL;
+        // SheetDB API URL (Replace this with your environment variable value during deployment)
+        const sheetDBUrl = "YOUR_API_URL"; // Replace "YOUR_API_URL" with the actual URL or load it from a config
 
         if (!sheetDBUrl) {
-            console.error("SHEETDB_API_URL is not defined in the environment.");
+            console.error("SHEETDB_API_URL is not defined.");
             alert("Configuration error: API URL is missing.");
             return;
         }
